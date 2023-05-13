@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "reviewanalyzer"
+version = "0.1.0"
+description = ""
+authors = ["Reyek <zreek2001@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.2.1"
+django-environ = "^0.10.0"
+psycopg2 = "^2.9.6"
+pytest-django = "^4.5.2"
+pytest-cov = "^4.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = "tests.py test_*.py *_tests.py"
+addopts = "--cov=config --cov-report=html"
