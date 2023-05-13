@@ -3,3 +3,5 @@
 htmlcov
 .coverage
 .idea
+logs
+_debug
