@@ -1,0 +1,20 @@
+[flake8]
+max-line-length = 88
+extend-ignore =
+    # Black
+    E203,
+    # Don't flag up Black whitespace
+    E231,
+    # Leave line lengths to Black
+    E266,
+    # Leave several leading '#' to enable titles in comments
+    E501,
+    # https://www.flake8rules.com/rules/W503.html
+    W503
+extend-exclude =
+    _debug
+    .github,
+    .pytest_cache,
+    .venv,
+    **/migrations,
+    **/__init__.py,  # Deps are imported into the top namespace and fail for being 'unused'

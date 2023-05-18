@@ -5,3 +5,5 @@ htmlcov
 .idea
 logs
 _debug
+/celerybeat-schedule
+/model/
