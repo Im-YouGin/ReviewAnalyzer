@@ -17,7 +17,9 @@ class ReviewFilter(filters.FilterSet):
     market = django_filters.MultipleChoiceFilter(
         choices=AppMarket.choices(), widget=CSVWidget
     )
-    date_range = django_filters.DateFromToRangeFilter(field_name="source_created_at")
+    date_range = django_filters.DateFromToRangeFilter(
+        field_name="source_created_at",
+    )
 
     class Meta:
         model = Review

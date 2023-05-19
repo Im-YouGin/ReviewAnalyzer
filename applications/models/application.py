@@ -78,14 +78,14 @@ class Application(UUIDModel, TimestampedModel):
                 or self.__previous_app_store_id is None
                 and self.app_store_id is not None
             ):
-                q_scrape_app_store_app_reviews.delay(self.pk)
+                q_scrape_app_store_app_reviews.delay(self.id)
 
             if (
                 created
                 or self.__previous_google_play_id is None
                 and self.google_play_id is not None
             ):
-                q_scrape_google_play_app_reviews.delay(self.pk)
+                q_scrape_google_play_app_reviews.delay(self.id)
 
         transaction.on_commit(enqueue_scraping_tasks)
 

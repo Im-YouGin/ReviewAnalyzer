@@ -27,7 +27,7 @@ class PasswordResetView(APIView):
             {
                 "email": user.email,
                 "base_url": settings.FRONTEND_BASE_URL,
-                "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                "uid": urlsafe_base64_encode(force_bytes(user.id)),
                 "token": default_token_generator.make_token(user),
             },
         )

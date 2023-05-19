@@ -32,6 +32,7 @@ class AnalyticsManager:
             .mean()
         )
         overall_sentiment_score = (overall_sentiment_score + 1) / 2 * 100
+
         return (
             round(overall_sentiment_score)
             if not np.isnan(overall_sentiment_score)
@@ -41,11 +42,13 @@ class AnalyticsManager:
     @property
     def _average_stars(self):
         average_stars = self.df["stars"].mean()
+
         return round(average_stars, 1) if not np.isnan(average_stars) else 0
 
     @property
     def _stars_breakdown(self):
         stars_breakdown = self.df["stars"].value_counts().to_dict()
+
         return stars_breakdown if stars_breakdown else STARS_BREAKDOWN_DEFAULT
 
     @property
@@ -55,33 +58,47 @@ class AnalyticsManager:
             .value_counts()
             .to_dict()
         )
+
         return (
             sentiment_breakdown if sentiment_breakdown else SENTIMENT_BREAKDOWN_DEFAULT
         )
 
     @property
     def _sentiment_timeseries(self):
-        return (
+        weekly_df = (
             self.df[self.df["sentiment_str"] != ""]
-            .groupby(["date", "sentiment_str"])
+            .groupby(["sentiment_str"])
+            .resample('W', on='date')
             .size()
-            .unstack(fill_value=0)
+            .unstack(level=0, fill_value=0)
             .reset_index()
-            .to_dict("records")
         )
+        weekly_df['date'] = weekly_df['date'].dt.date
+
+        return weekly_df.to_dict("records")
 
     @property
     def _stars_timeseries(self):
-        return (
-            self.df.groupby("date")["stars"]
+        weekly_df = (
+            self.df
+            .resample('W', on='date')["stars"]
             .mean()
             .round(1)
             .reset_index()
-            .to_dict("records")
         )
+        weekly_df['date'] = weekly_df['date'].dt.date
+
+        return weekly_df.to_dict("records")
 
     @property
     def _review_timeseries(self):
-        return (
-            self.df.groupby("date").size().reset_index(name="count").to_dict("records")
+        weekly_df = (
+            self.df
+            .resample('W', on='date')
+            .size()
+            .reset_index(name="count")
         )
+        weekly_df['date'] = weekly_df['date'].dt.date
+
+        return weekly_df.to_dict("records")
+

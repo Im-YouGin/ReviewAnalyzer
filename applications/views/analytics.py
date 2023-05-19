@@ -9,13 +9,12 @@ from applications.models import Application, Review
 
 
 class ApplicationAnalyticsView(ListAPIView):
-    queryset = Review.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_class = ReviewFilter
 
     def get_queryset(self):
-        application = get_object_or_404(Application, pk=self.kwargs["pk"])
-        return application.review_set.all()
+        application = get_object_or_404(Application, id=self.kwargs["pk"])
+        return application.review_set.order_by('source_created_at')
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -33,5 +32,6 @@ class ApplicationAnalyticsView(ListAPIView):
                 queryset.values("stars", "market", "source_created_at", "sentiment_str")
             )
         )
-        df["date"] = df.pop("source_created_at").dt.date
+        df['date'] = pd.to_datetime(df.pop('source_created_at'))
+
         return df

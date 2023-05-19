@@ -5,7 +5,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny
 
 from authentication.models.email_confirmation_token import EmailConfirmationToken
-from authentication.serializers.user import UserSerializer
+from authentication.serializers.user import SignupSerializer
 from authentication.tasks import q_email_user
 
 User = get_user_model()
@@ -16,7 +16,7 @@ class SignupView(CreateAPIView):
     permission_classes = (AllowAny,)
 
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = SignupSerializer
 
     def perform_create(self, serializer):
         user = serializer.save()

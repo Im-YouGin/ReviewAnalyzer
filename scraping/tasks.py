@@ -6,21 +6,21 @@ from common.celery.decorators import task_with_lock
 
 
 @shared_task
-def q_scrape_app_store_app_reviews(application_pk):
+def q_scrape_app_store_app_reviews(application_id):
     from scraping.app_store.app_reviews.runner import (
         AppStoreReviewScrapingProcessRunner,
     )
 
-    AppStoreReviewScrapingProcessRunner(application_pk).scrape()
+    AppStoreReviewScrapingProcessRunner(application_id).scrape()
 
 
 @shared_task
-def q_scrape_google_play_app_reviews(application_pk):
+def q_scrape_google_play_app_reviews(application_id):
     from scraping.google_play.app_reviews.runner import (
         GooglePlayReviewScrapingProcessRunner,
     )
 
-    GooglePlayReviewScrapingProcessRunner(application_pk).scrape()
+    GooglePlayReviewScrapingProcessRunner(application_id).scrape()
 
 
 @task_with_lock

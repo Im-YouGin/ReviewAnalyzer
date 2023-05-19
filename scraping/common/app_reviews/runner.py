@@ -11,8 +11,8 @@ class BaseReviewScrapingProcessRunner(ABC):
     _process_name: str
     _market: AppMarket
 
-    def __init__(self, application_pk):
-        self.application = Application.objects.filter(pk=application_pk).first()
+    def __init__(self, application_id):
+        self.application = Application.objects.filter(id=application_id).first()
 
     @abstractmethod
     def _get_scraper(self):

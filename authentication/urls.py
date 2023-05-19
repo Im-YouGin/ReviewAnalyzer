@@ -9,7 +9,7 @@ urlpatterns = [
     path("login/", views.LoginView.as_view(), name="login"),
     path("logout/", views.LogoutView.as_view(), name="logout"),
     path(
-        "confirm-email/<str:token>/",
+        "email-confirm/<str:token>/",
         views.EmailConfirmView.as_view(),
         name="confirm-email",
     ),
@@ -18,7 +18,7 @@ urlpatterns = [
     ),
     path("password-reset/", views.PasswordResetView.as_view(), name="password-reset"),
     path(
-        "password-reset/confirm/",
+        "password-reset-confirm/",
         views.PasswordResetConfirmView.as_view(),
         name="password-reset-confirm",
     ),

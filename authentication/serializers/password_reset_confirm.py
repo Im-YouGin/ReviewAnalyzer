@@ -19,8 +19,8 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
             )
 
         try:
-            uid = urlsafe_base64_decode(attrs["uid"])
-            user = User.objects.get(pk=uid)
+            uid = urlsafe_base64_decode(attrs["uid"]).decode()
+            user = User.objects.get(id=uid)
 
         except (TypeError, ValueError, OverflowError, User.DoesNotExist):
             raise serializers.ValidationError({"uid": ["This field is not valid."]})
@@ -34,3 +34,9 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     def validate_new_password(self, value):
         password_validation.validate_password(value)
         return value
+
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
