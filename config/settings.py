@@ -37,7 +37,7 @@ EMAIL_PORT = env("EMAIL_PORT")
 EMAIL_USE_TLS = env("EMAIL_USE_TLS")
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = f'GetSenti <{EMAIL_HOST_USER}>'
+DEFAULT_FROM_EMAIL = f"GetSenti <{EMAIL_HOST_USER}>"
 
 FRONTEND_BASE_URL = env("FRONTEND_BASE_URL")
 
@@ -63,12 +63,12 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "django_filters",
-    'corsheaders',
+    "corsheaders",
 ]
 
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -111,7 +111,7 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://localhost:6379/1",
+        "LOCATION": env('REDIS_CACHE_LOCATION'),
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
         "KEY_PREFIX": "review_analyzer",
     }
@@ -122,8 +122,8 @@ CACHE_TTL = 60 * 15
 
 
 # Celery settings
-CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_BROKER_URL = env("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND")
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -192,3 +192,5 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
+
+REDIS_HOST = env('REDIS_HOST')

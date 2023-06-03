@@ -14,7 +14,7 @@ from scraping.google_play.constants import (
 )
 from scraping.google_play.constants.regex import GOOGLE_PLAY_REVIEWS_REGEX
 
-logger = logging.getLogger(__file__)
+logger = logging.getLogger("review_analyzer")
 
 
 class GooglePlayAppReviewsScraper(BaseAppReviewsScraper):

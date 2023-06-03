@@ -9,7 +9,7 @@ urlpatterns = [
     path("login/", views.LoginView.as_view(), name="login"),
     path("logout/", views.LogoutView.as_view(), name="logout"),
     path(
-        "email-confirm/<str:token>/",
+        "email-confirm/",
         views.EmailConfirmView.as_view(),
         name="confirm-email",
     ),

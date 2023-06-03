@@ -10,6 +10,7 @@ from scraping.tasks import (
 
 class Application(UUIDModel, TimestampedModel):
     name = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
 
     # AppStore - START
     app_store_id = models.CharField(max_length=16, blank=True)

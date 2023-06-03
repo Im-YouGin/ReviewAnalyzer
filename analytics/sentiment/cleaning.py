@@ -2,15 +2,12 @@ import re
 
 import contractions
 import emoji
-import nltk
+import stanza
 from bs4 import BeautifulSoup
-from nltk.stem import WordNetLemmatizer
 
-from analytics.constants import ENGLISH_STOP_WORDS
-
-nltk.download("wordnet")
-
-lemmatizer = WordNetLemmatizer()
+stanza.download("en")
+# Load the English language model
+nlp = stanza.Pipeline("en")
 
 
 def clean_review(review):
@@ -48,12 +45,11 @@ def clean_review(review):
     review = re.sub(r"\s+", " ", review).strip()
 
     # Lemmatization and stop-word removal
-    review = " ".join(
-        [
-            lemmatizer.lemmatize(word)
-            for word in review.split()
-            if word not in ENGLISH_STOP_WORDS
-        ]
-    )
+    try:
+        review = " ".join(
+            [word.lemma for sent in nlp(review).sentences for word in sent.words]
+        )
+    except Exception:
+        print(f"Failed to lemmatize {review}")
 
     return review

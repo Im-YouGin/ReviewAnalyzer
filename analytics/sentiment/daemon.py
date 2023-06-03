@@ -1,5 +1,4 @@
 import logging
-from concurrent.futures import ThreadPoolExecutor
 
 from transformers import pipeline
 
@@ -27,14 +26,14 @@ class SentimentAnalysisDaemon:
         reviews = self._get_reviews_to_analyze()
 
         logger.info(
-            f"Sentiment analysis daemon found {len(reviews)} reviews to analyze."
+            f"Sentiment analysis daemon found %s reviews to analyze." % len(reviews)
         )
 
         # TODO: figure out how to parallelize
         updated_reviews = {self._analyze_sentiment(r) for r in reviews}
 
         Review.objects.bulk_update(
-            updated_reviews, ("sentiment_str", "sentiment_score"), batch_size=BATCH_SIZE
+            updated_reviews, ("sentiment_str",), batch_size=BATCH_SIZE
         )
 
         logger.info("Sentiment analysis daemon finished.")
@@ -45,11 +44,10 @@ class SentimentAnalysisDaemon:
         try:
             sentiment = self._nlp_model(cleaned)[0]
             review.sentiment_str = VERBOSE_LABELS[sentiment["label"]]
-            review.sentiment_score = sentiment["score"]
 
-        except Exception as e:
+        except Exception as exc:
             logger.exception(
-                f"Exception occurred trying to analyze the following review:\n{review.content}\n{e}"
+                f"Exception occurred trying to analyze the following review:\n%s\n%s" % (review.content, exc)
             )
 
         review.is_sentiment_analyzed = True

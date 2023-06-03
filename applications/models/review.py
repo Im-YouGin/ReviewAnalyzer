@@ -22,7 +22,6 @@ class Review(UUIDModel, TimestampedModel):
     sentiment_str = models.CharField(
         max_length=20, choices=Sentiment.choices(), blank=True
     )
-    sentiment_score = models.FloatField(null=True, blank=True)
     is_sentiment_analyzed = models.BooleanField(default=False)
     # Sentiment data - END
 

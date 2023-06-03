@@ -6,7 +6,7 @@ from common.constants import AppMarket
 from scraping.common.app_reviews.runner import BaseReviewScrapingProcessRunner
 from scraping.google_play.app_reviews.scraper import GooglePlayAppReviewsScraper
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("review_analyzer")
 
 
 class GooglePlayReviewScrapingProcessRunner(BaseReviewScrapingProcessRunner):

@@ -1,11 +1,10 @@
 import logging
 
-from applications.models import Application
-from common.constants import AppMarket, AppStatus
+from common.constants import AppMarket
 from scraping.app_store.app_reviews.runner import AppStoreReviewScrapingProcessRunner
 from scraping.common.app_reviews.daemon import BaseAllReviewScrapingDaemon
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("review_analyzer")
 
 
 class AppStoreAllReviewScrapingDaemon(BaseAllReviewScrapingDaemon):

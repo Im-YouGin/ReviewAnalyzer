@@ -1,4 +1,8 @@
+import plotly.graph_objects as go
+
+
 from analytics.constants.enums import Sentiment
+from analytics.utils.plotting import get_empty_plotly_chart
 from common.constants import AppMarket
 
 STARS_BREAKDOWN_DEFAULT = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
@@ -8,6 +12,17 @@ SENTIMENT_BREAKDOWN_DEFAULT = {
     Sentiment.POSITIVE: 0,
 }
 REVIEW_COUNT_PER_MARKET_DEFAULT = {AppMarket.APP_STORE: 0, AppMarket.GOOGLE_PLAY: 0}
+
+ANALYTICS_EMPTY_RESPONSE = {
+    "total_review_count": 0,
+    "overall_sentiment": {"value": None, "chart": get_empty_plotly_chart()},
+    "average_stars": 0,
+    "stars_breakdown": get_empty_plotly_chart(margin={"l": 20, "r": 20, "b": 20, "t": 10},),
+    "sentiment_breakdown": get_empty_plotly_chart(),
+    "sentiment_timeseries": get_empty_plotly_chart(),
+    "stars_timeseries": get_empty_plotly_chart(),
+    "review_timeseries": get_empty_plotly_chart(),
+}
 
 ENGLISH_STOP_WORDS = {
     "in",

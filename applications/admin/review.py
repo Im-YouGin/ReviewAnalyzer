@@ -13,7 +13,6 @@ class ReviewAdmin(admin.ModelAdmin):
         "stars",
         "market",
         "sentiment_str",
-        "sentiment_score",
         "source_id",
         "source_created_at",
     )

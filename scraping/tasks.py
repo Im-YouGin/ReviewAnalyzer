@@ -1,5 +1,3 @@
-import time
-
 from celery import shared_task
 
 from common.celery.decorators import task_with_lock

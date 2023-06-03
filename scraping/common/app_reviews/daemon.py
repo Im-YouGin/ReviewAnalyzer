@@ -1,6 +1,6 @@
 import concurrent.futures
 import logging
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import Type, Union
 
 from applications.models import Application
@@ -10,7 +10,7 @@ from scraping.google_play.app_reviews.runner import (
     GooglePlayReviewScrapingProcessRunner,
 )
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("review_analyzer")
 
 
 class BaseAllReviewScrapingDaemon(ABC):

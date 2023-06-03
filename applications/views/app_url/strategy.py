@@ -48,6 +48,7 @@ class BaseAppUrlStrategy(ABC):
             if not app_obj:
                 values_dict = {
                     "name": app_details["name"],
+                    "description": app_details["description"],
                     **{
                         f"{self.market}_id": self.app_id,
                         **self.get_app_market_specific_attrs(),
@@ -107,4 +108,4 @@ class GooglePlayAppUrlStrategy(BaseAppUrlStrategy):
         return scraper.get_details()
 
     def get_app_market_specific_attrs(self):
-        pass
+        return {}

@@ -4,7 +4,7 @@ from common.constants import AppMarket
 from scraping.app_store.app_reviews.scraper import AppStoreAppReviewsScraper
 from scraping.common.app_reviews.runner import BaseReviewScrapingProcessRunner
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("review_analyzer")
 
 
 class AppStoreReviewScrapingProcessRunner(BaseReviewScrapingProcessRunner):

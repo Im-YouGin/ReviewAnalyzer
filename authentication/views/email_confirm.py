@@ -12,7 +12,9 @@ class EmailConfirmView(APIView):
     authentication_classes = ()
     permission_classes = (AllowAny,)
 
-    def get(self, request, token):
+    def post(self, request):
+        token = self._get_token()
+
         token_obj = EmailConfirmationToken.objects.filter(
             token=token, expires_at__gt=timezone.now()
         ).first()
@@ -27,3 +29,10 @@ class EmailConfirmView(APIView):
 
         token, created = Token.objects.get_or_create(user=user)
         return Response({"token": token.key})
+
+    def _get_token(self):
+        token = self.request.data.get("token")
+        if not token:
+            raise ValidationError({"token": ["This field is required."]})
+
+        return token

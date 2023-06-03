@@ -19,7 +19,7 @@ class BaseAppReviewsScraper(ABC, RequestsMixin):
 
     def _perform_anti_blocking_actions(self):
         self.__rotate_session_user_agent()
-        time.sleep(random.random() * 2)
+        time.sleep(random.random() * 2)  # nosec
 
     def __rotate_session_user_agent(self):
         self._session.headers.update({"User-Agent": self._ua.random})

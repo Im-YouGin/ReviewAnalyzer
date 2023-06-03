@@ -9,3 +9,11 @@ class SearchHistory(UUIDModel, TimestampedModel):
     application = models.ForeignKey(
         "applications.Application", on_delete=models.CASCADE
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "application", "created_at"],
+                name="uc_search_history_user_app_created_at",
+            ),
+        ]
