@@ -4,6 +4,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from rest_framework.exceptions import NotFound
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -19,7 +20,7 @@ class PasswordResetView(APIView):
     permission_classes = (AllowAny,)
 
     def post(self, request):
-        user = get_object_or_404(User, email=request.data.get("email"))
+        user = self._get_user()
 
         subject = "Password Reset"
         message = render_to_string(
@@ -35,3 +36,10 @@ class PasswordResetView(APIView):
         q_email_user.delay(str(user.id), subject, message)
 
         return Response({"detail": "Password reset email has been sent."})
+
+    def _get_user(self):
+        user = User.objects.filter(email=self.request.data.get("email")).first()
+        if not user:
+            raise NotFound({'email': ["User with this email does not exist."]})
+
+        return user

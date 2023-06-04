@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from common.models import UUIDModel
@@ -24,7 +25,9 @@ class UserManager(BaseUserManager):
 
 class User(UUIDModel, AbstractUser):
     username = None
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, error_messages={
+            'unique': 'User with this email already exists.',
+        })
 
     objects = UserManager()
 

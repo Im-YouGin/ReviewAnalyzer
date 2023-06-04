@@ -17,4 +17,4 @@ def parse_app_url(url):
             except IndexError:
                 pass
 
-    raise ValidationError({"url": ["This field is not valid."]})
+    raise ValidationError({"url": ["Enter a valid Google Play or App Store URL."]})
