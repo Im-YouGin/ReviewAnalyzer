@@ -26,6 +26,7 @@ services:
   frontend:
     build:
       context: ../getsentiApp
+    image: frontend:builder
     ports:
       - "3000:3000"
 
