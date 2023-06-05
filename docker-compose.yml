@@ -28,10 +28,6 @@ services:
       context: ../getsentiApp
     ports:
       - "3000:3000"
-    environment:
-      - REACT_APP_SERVER_URL=${API_BASE_URL}
-    volumes:
-      - static-volume:/app/build
 
   celery-worker:
     build:
@@ -64,12 +60,9 @@ services:
     depends_on:
       - backend
       - frontend
-    volumes:
-      - static-volume:/usr/share/nginx/html:ro
 
   redis:
     image: redis:alpine
 
 volumes:
   postgres-data:
-  static-volume:
