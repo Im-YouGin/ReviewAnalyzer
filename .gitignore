@@ -7,5 +7,5 @@ logs
 _debug
 /celerybeat-schedule
 /model/
-__pycache__
+*__pycache__
 venv
