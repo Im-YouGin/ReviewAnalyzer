@@ -49,7 +49,7 @@ FRONTEND_BASE_URL = env("FRONTEND_BASE_URL")
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-STATIC_URL = "/static/"
+STATIC_URL = "/staticfiles/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 INSTALLED_APPS = [
