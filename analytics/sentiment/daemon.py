@@ -12,7 +12,7 @@ VERBOSE_LABELS = {"LABEL_2": "positive", "LABEL_1": "neutral", "LABEL_0": "negat
 
 
 class SentimentAnalysisDaemon:
-    SESSION_REVIEW_COUNT_LIMIT = 500
+    SESSION_REVIEW_COUNT_LIMIT = 10
     WORKERS_COUNT = 1
 
     MODEL_NAME = "Seethal/sentiment_analysis_generic_dataset"
